@@ -3,6 +3,8 @@ from settings import *
 from tile import Tile
 from player import Player
 from debug import debug
+from support import *
+from random import choice
 
 class Level:
     def __init__(self):
@@ -17,16 +19,41 @@ class Level:
         self.create_map()
 
     def create_map(self):
-        for row_index, row in enumerate(WORLD_MAP):
-            for col_index, col in enumerate(row):
-                y = row_index * TILESIZE
-                x = col_index * TILESIZE
+        layouts = {
+            'boundary': import_csv_layout("./map/map_FloorBlocks.csv"),
+            'grass' : import_csv_layout("./map/map_Grass.csv"),
+            'object' : import_csv_layout("./map/map_Objects.csv")
+        }
 
-                if col == 'x':
-                    Tile((x, y), [self.visible_sprites, self.obstacle_sprites])
+        graphics = {
+            'grass' : import_folder("./graphics/Grass")
+        }
 
-                if col == 'p':
-                    self.player = Player((x, y), [self.visible_sprites], self.obstacle_sprites)
+        print(graphics)
+
+        for style, layout in layouts.items():
+            for row_index, row in enumerate(layout):
+                for col_index, col in enumerate(row):
+                    if col != '-1':
+                        y = row_index * TILESIZE
+                        x = col_index * TILESIZE
+
+                        if style == 'boundary':
+                            Tile((x,y), [self.obstacle_sprites], "invisible")
+
+                        if style == "grass":
+                            random_grass_image = choice(graphics['grass'])
+                            Tile((x,y), [self.visible_sprites, self.obstacle_sprites], "grass", random_grass_image)
+
+                        if style == "object":
+                            pass
+
+        #         if col == 'x':
+        #             Tile((x, y), [self.visible_sprites, self.obstacle_sprites])
+
+        #         if col == 'p':
+        #             self.player = Player((x, y), [self.visible_sprites], self.obstacle_sprites)
+        self.player = Player((2000, 1430), [self.visible_sprites], self.obstacle_sprites)
 
     def run(self):
         # update and draw the game
