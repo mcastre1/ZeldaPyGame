@@ -37,3 +37,11 @@ magic_data = {
     'flame' : {'strength': 5, 'cost': 20, 'graphic': './graphics/particles/flame/fire.png'},
     'heal' : {'strength': 20, 'cost': 10, 'graphic': './graphics/particles/heal/heal.png'}
 }
+
+# enemy
+monster_data = {
+    'squid': {'health': 100, 'exp': 100, 'damage': 20, 'attac_type': 'slash', 'attack_sound': './audio/atack/slash.wav'},
+    'raccoon': {'health': 300, 'exp': 250, 'damage': 40, 'attac_type': 'claw', 'attack_sound': './audio/attack/claw.wav'},
+    'spirit': {'health': 100, 'exp': 110, 'damage': 8, 'attac_type': 'thunder', 'attack_sound': './audio/attack/fireball.wav'},
+    'bamboo': {'health': 70, 'exp': 120, 'damage': 6, 'attac_type': 'leaf_attack', 'attack_sound': './audio/attack/slash.wav'},
+}
